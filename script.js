@@ -94,7 +94,7 @@ function updateTimer() {
 
 // Optimization: We still use setInterval for the clock update (which is once per second) 
 // but the canvas animation runs using requestAnimationFrame, which is smooth.
-setInterval(updateTimer, 997); 
+setInterval(updateTimer, 998); 
 updateTimer();
 
 // --- 2. PET NAME ANIMATION ---
