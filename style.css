@@ -55,7 +55,7 @@ h1 {
     text-shadow: 0 0 15px rgba(255, 125, 255, 0.7);
     animation: fadeInText 1s 1.5s forwards;
     opacity: 0;
-    position: relative; /* Needed for emoji positioning */
+    position: relative; 
 }
 
 h2 {
@@ -65,19 +65,24 @@ h2 {
     margin-bottom: 10px;
     opacity: 0;
     animation: fadeInText 1s 1.7s forwards;
-    position: relative; /* Needed for emoji positioning */
+    position: relative; 
 }
 
+/* NEW FONT for Pet Names: A nice, legible script/fancy serif that isn't too cursive */
 .subtitle {
+    font-family: 'Poppins', sans-serif; /* Fallback to Poppins or choose a better imported one if available */
+    font-weight: 300; 
     font-size: 1.5rem;
-    font-weight: 300;
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 30px; /* Fixed height to prevent layout shift */
+    height: 30px; 
     color: #f0c5ff;
     text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
     transition: opacity 0.5s ease-in-out;
-    position: relative; /* Needed for emoji positioning */
+    position: relative; 
+    /* Adding a light styling touch to distinguish the font */
+    font-style: italic;
+    letter-spacing: 0.5px;
 }
 
 @keyframes fadeInText {
@@ -90,7 +95,7 @@ h2 {
     animation: emojiPop 0.5s ease-out forwards;
     transform-origin: center bottom;
     opacity: 0;
-    margin-left: 5px; /* Add some space next to text */
+    margin-left: 5px; 
 }
 
 /* Specific delays for emojis in the dedication */
@@ -181,7 +186,7 @@ h2 {
     min-width: 70px;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 1s forwards 2.7s; /* Unified delay for this section */
+    animation: fadeInUp 1s forwards 2.7s; 
 }
 
 .time-value-small {
@@ -233,39 +238,56 @@ h2 {
     line-height: 1.7;
 }
 
-/* --- Responsive Design (Refined for Compact Mobile View) --- */
+/* --- Responsive Design (Refined for Ultra Compact Mobile View) --- */
 @media (max-width: 768px) {
     .main-container { 
-        padding: 20px 10px; /* More compact padding */
-        width: 95%; /* Use more screen width */
+        padding: 15px 5px; /* Minimal padding */
+        width: 98%; 
     }
     
-    /* Smaller Text Elements for Compactness */
-    h1 { font-size: 2.5rem; } /* Significantly smaller */
-    h2 { font-size: 1.1rem; margin-top: 20px; }
-    .subtitle { font-size: 1.1rem; height: 25px; margin-top: 5px; margin-bottom: 5px; }
-    .dedication p { font-size: 0.9rem; }
+    /* Smaller Text Elements for Ultra Compactness */
+    h1 { font-size: 2.2rem; } /* Very small title */
+    h2 { font-size: 1rem; margin-top: 15px; margin-bottom: 5px; }
+    .subtitle { 
+        font-size: 1rem; /* Smaller pet names */
+        height: 20px; 
+        margin-top: 5px; 
+        margin-bottom: 5px; 
+        font-style: italic; /* Keeps the style */
+    }
+    .dedication p { 
+        font-size: 0.85rem; 
+        line-height: 1.5;
+        margin-top: 10px;
+    }
 
     /* Main Timer Boxes (Years, Months, Days, etc.) */
     #timer { 
-        gap: 8px; /* Reduced gap */
-        margin: 10px 0 20px 0;
+        gap: 5px; /* Tiny gap */
+        margin: 5px 0 15px 0;
+        justify-content: space-between; /* Spread out for better tap targets */
     }
     .time-box {
-        min-width: 30%; /* Allows 3 boxes per row easily */
-        margin-bottom: 8px; /* Space between rows */
+        min-width: 30%; 
+        margin-bottom: 5px; 
+        padding: 5px 0;
     }
-    .time-value { font-size: 2rem; } /* Smaller value */
-    .time-label { font-size: 0.65rem; letter-spacing: 1px; }
+    .time-value { font-size: 1.8rem; } /* Very small value */
+    .time-label { font-size: 0.6rem; letter-spacing: 0.5px; }
     
     /* Anniversary Timer Boxes (Days, Hours, Minutes, Seconds) */
     #next-anniversary-timer {
-        gap: 10px;
-        margin: 10px 0 20px 0;
+        gap: 8px;
+        margin: 5px 0 15px 0;
+        justify-content: space-between;
     }
     .time-box-small {
-        min-width: 22%; /* Keeps 4 boxes in a single row */
+        min-width: 23%; /* Keeps 4 boxes in a single row */
+        padding: 5px 0;
     }
-    .time-value-small { font-size: 1.6rem; } /* Smaller value */
-    .time-label-small { font-size: 0.6rem; letter-spacing: 0.5px; }
+    .time-value-small { font-size: 1.4rem; } /* Very small value */
+    .time-label-small { font-size: 0.55rem; letter-spacing: 0.5px; }
+    
+    .separator { margin: 15px 0; }
+    .dedication { margin-top: 15px; padding-top: 10px; }
 }
