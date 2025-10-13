@@ -3,7 +3,12 @@
 // SET YOUR DATE HERE
 const anniversaryDate = new Date('2025-07-25T20:30:00'); 
 const ANNIVERSARY_DAY = 25;
-const ANNIVERSARY_MONTH = 6; // July is month 6 (0-indexed)
+// Note: Month is 0-indexed, so July is 6
+const ANNIVERSARY_MONTH = 6; 
+// Time for Next Anniversary Countdown: Midnight (12:00:00 AM)
+const ANNIVERSARY_HOUR = 0; 
+const ANNIVERSARY_MINUTE = 0;
+const ANNIVERSARY_SECOND = 0;
 
 const elements = {
     years: document.getElementById('years'),
@@ -23,7 +28,7 @@ let lastTime = {};
 function updateTimer() {
     const now = new Date();
     
-    // --- Relationship Duration Timer (Your existing logic) ---
+    // --- Relationship Duration Timer (Counts since 20:30:00) ---
     let years = now.getFullYear() - anniversaryDate.getFullYear();
     let months = now.getMonth() - anniversaryDate.getMonth();
     let days = now.getDate() - anniversaryDate.getDate();
@@ -55,12 +60,13 @@ function updateTimer() {
         }
     }
     
-    // --- Next Anniversary Countdown Timer ---
-    let nextAnniversary = new Date(now.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, 20, 30, 0);
+    // --- Next Anniversary Countdown Timer (Counts to 12:00:00 AM) ---
+    // Sets the next anniversary date to 12:00:00 AM
+    let nextAnniversary = new Date(now.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, ANNIVERSARY_HOUR, ANNIVERSARY_MINUTE, ANNIVERSARY_SECOND);
 
-    // If the date has passed this year, set it for next year
-    if (now > nextAnniversary) {
-        nextAnniversary = new Date(now.getFullYear() + 1, ANNIVERSARY_MONTH, ANNIVERSARY_DAY, 20, 30, 0);
+    // If the time is past 12:00:00 AM on July 25th this year, set it for next year
+    if (now.getTime() >= nextAnniversary.getTime()) {
+        nextAnniversary = new Date(now.getFullYear() + 1, ANNIVERSARY_MONTH, ANNIVERSARY_DAY, ANNIVERSARY_HOUR, ANNIVERSARY_MINUTE, ANNIVERSARY_SECOND);
     }
     
     const timeRemaining = nextAnniversary.getTime() - now.getTime();
