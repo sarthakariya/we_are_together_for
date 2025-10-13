@@ -1,0 +1,1 @@
+I am making this website on 12/10/2025 so that when we will marry eachother, we will look back at it and see wow these time, the journey brought us here and we will show it to our future kids too... 💗💕❤️
