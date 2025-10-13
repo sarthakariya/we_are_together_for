@@ -100,9 +100,9 @@ updateTimer();
 // --- 2. PET NAME ANIMATION ---
 
 const petNames = [
-    "My Babyyy 👶", "My Wifeyyy 👰‍♀️", "My Honeyyyy 🍯", "My Forever... ♾️",
-    "My Kuchu Puchu 🥰", "My Sweetheart 💖", "My Soan Papdi 🍬", "My Darlinggg ✨",
-    "My Everything 🌍", "My Bestfriend 🧑‍🤝‍🧑", "My FAMILY 👨‍👩‍👧‍👦"
+    "My Babyyy... 😋", "My Wifeyyy... 😘", "My Honeyyyy... 💕", "My Forever... ♾️",
+    "My Kuchu Puchu... 🥰", "My Sweetheart... 💖", "My Soan Papdi... 💝", "My Darlinggg... 💘",
+    "My Everything... 🤌🏼", "My Bestfriend... ", "My FAMILY... 💞"
 ];
 let currentPetNameIndex = 0;
 const petNameElement = document.getElementById('pet-names');
