@@ -94,7 +94,7 @@ function updateTimer() {
 
 // Optimization: We still use setInterval for the clock update (which is once per second) 
 // but the canvas animation runs using requestAnimationFrame, which is smooth.
-setInterval(updateTimer, 1000); 
+setInterval(updateTimer, 900); 
 updateTimer();
 
 // --- 2. PET NAME ANIMATION ---
@@ -123,7 +123,7 @@ setInterval(() => {
         }
 
     }, 500); // Wait for fade out to finish
-}, 4000); // Change every 4 seconds
+}, 3000); // Change every 4 seconds
 
 
 // --- 3. ETHEREAL AURORA BACKGROUND ---
