@@ -233,15 +233,37 @@ h2 {
     line-height: 1.7;
 }
 
-/* --- Responsive Design --- */
+/* --- Responsive Design (Enhanced for Mobile) --- */
 @media (max-width: 768px) {
-    .main-container { padding: 25px; }
-    h1 { font-size: 3rem; }
-    h2 { font-size: 1.2rem; }
-    .subtitle { font-size: 1.2rem; height: 25px; }
-    .time-value { font-size: 2.5rem; }
-    .time-label { font-size: 0.7rem; }
-    .time-value-small { font-size: 1.8rem; }
-    .time-label-small { font-size: 0.6rem; }
-    .dedication p { font-size: 0.95rem; }
+    .main-container { padding: 25px 15px; } /* Adjust padding for smaller screens */
+    
+    /* Larger Text Elements */
+    h1 { font-size: 3.5rem; } /* Slightly larger than previous mobile size */
+    h2 { font-size: 1.3rem; }
+    .subtitle { font-size: 1.4rem; height: 30px; }
+    .dedication p { font-size: 1rem; }
+
+    /* Main Timer Boxes */
+    #timer { 
+        gap: 10px; /* Reduced gap */
+        justify-content: space-around; /* Distribute space evenly */
+        /* Make it wrap in two rows on very small screens, 3 boxes per row */
+    }
+    .time-box {
+        min-width: 28%; /* Allows 3 boxes per row on most phones */
+        margin-bottom: 10px; /* Space between rows */
+    }
+    .time-value { font-size: 2.8rem; } /* Larger value */
+    .time-label { font-size: 0.8rem; }
+    
+    /* Anniversary Timer Boxes (Smaller Timer) */
+    #next-anniversary-timer {
+        gap: 15px;
+        justify-content: space-around;
+    }
+    .time-box-small {
+        min-width: 20%; /* Keep 4 boxes in a single row */
+    }
+    .time-value-small { font-size: 2rem; } /* Larger value */
+    .time-label-small { font-size: 0.75rem; }
 }
