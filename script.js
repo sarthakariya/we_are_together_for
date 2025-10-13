@@ -92,7 +92,9 @@ function updateTimer() {
     lastTime = {...currentTime, ...currentAnnivTime};
 }
 
-setInterval(updateTimer, 1000);
+// Optimization: We still use setInterval for the clock update (which is once per second) 
+// but the canvas animation runs using requestAnimationFrame, which is smooth.
+setInterval(updateTimer, 1000); 
 updateTimer();
 
 // --- 2. PET NAME ANIMATION ---
@@ -144,9 +146,8 @@ class Ribbon {
     init() {
         this.x = 0;
         this.y = Math.random() * height;
-        this.vy = Math.random() * 0.1 - 0.05; // Slower vertical movement
+        this.vy = Math.random() * 0.1 - 0.05; 
         
-        // Generate hues specifically for pink, violet, purplish
         let hue;
         const rand = Math.random();
         if (rand < 0.33) { // Pinkish
@@ -157,16 +158,16 @@ class Ribbon {
             hue = Math.random() * (270 - 240) + 240; 
         }
 
-        this.color = `hsla(${hue}, 80%, 70%, 0.15)`; // Increased saturation and lightness
+        this.color = `hsla(${hue}, 80%, 70%, 0.15)`; 
         this.width = Math.random() * width;
-        this.amplitude = Math.random() * 50 + 20; // Subtle vertical presence
-        this.frequency = Math.random() * 0.01 + 0.005; // Wider waves
+        this.amplitude = Math.random() * 50 + 20; 
+        this.frequency = Math.random() * 0.01 + 0.005; 
         this.phase = Math.random() * Math.PI * 2;
-        this.lineWidth = Math.random() * 2 + 1; // Varying line thickness for detail
+        this.lineWidth = Math.random() * 1.5 + 0.5; // Reduced max width slightly for better performance
     }
     update() {
-        // Reduced speed for smoother, less intensive animation
-        this.phase += 0.008; 
+        // Slightly increased speed factor for a smoother appearance
+        this.phase += 0.01; 
         this.y += this.vy;
         if (this.y < 0 || this.y > height) {
             this.init();
@@ -174,14 +175,15 @@ class Ribbon {
     }
     draw() {
         ctx.beginPath();
+        
         // Set glow effect for each ribbon
-        ctx.shadowBlur = 15; 
+        ctx.shadowBlur = 12; // Slight reduction in blur intensity
         ctx.shadowColor = `hsla(${this.color.split('(')[1].split(',')[0]}, 100%, 80%, 0.8)`; 
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
 
-        for (let i = 0; i <= width; i += 5) { 
+        for (let i = 0; i <= width; i += 7) { // Increased step size (fewer points) for speed
             const y = this.y + Math.sin(i * this.frequency + this.phase) * this.amplitude;
             ctx.lineTo(i, y);
         }
@@ -202,12 +204,13 @@ class Ribbon {
     }
 }
 
-for (let i = 0; i < 20; i++) { // Reduced number of ribbons for performance
+for (let i = 0; i < 20; i++) { 
     ribbons.push(new Ribbon());
 }
 
 function animate() {
-    // Subtle trail effect instead of clearing entirely
+    // This draws a subtle, nearly transparent layer over the top each frame.
+    // It is critical for the "smooth trail" effect of the aurora.
     ctx.fillStyle = 'rgba(12, 10, 36, 0.03)'; 
     ctx.fillRect(0, 0, width, height);
     
@@ -215,7 +218,9 @@ function animate() {
         ribbon.update();
         ribbon.draw();
     }
-    requestAnimationFrame(animate);
+    // This is the key to smoothness: it tells the browser to schedule the next frame 
+    // at the display's refresh rate (up to 120Hz or more).
+    requestAnimationFrame(animate); 
 }
 
 animate();
