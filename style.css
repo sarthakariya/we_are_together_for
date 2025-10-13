@@ -76,7 +76,7 @@ h2 {
     margin-top: 10px;
     margin-bottom: 10px;
     height: 30px; 
-    color: #f0c5ff;
+    color: #C41BB0;
     text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
     transition: opacity 0.5s ease-in-out;
     position: relative; 
@@ -136,7 +136,7 @@ h2 {
     min-width: 100px;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8 forwards;
+    animation: fadeInUp 1s forwards;
 }
 
 /* Staggered animation for each timer box */
