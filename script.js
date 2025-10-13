@@ -103,8 +103,17 @@ setInterval(() => {
     petNameElement.style.opacity = '0'; // Fade out
     setTimeout(() => {
         currentPetNameIndex = (currentPetNameIndex + 1) % petNames.length;
-        petNameElement.textContent = petNames[currentPetNameIndex];
+        petNameElement.innerHTML = petNames[currentPetNameIndex]; // Use innerHTML to allow emoji span
         petNameElement.style.opacity = '1'; // Fade in
+
+        // Trigger emoji animation for new emoji
+        const newEmoji = petNameElement.querySelector('.emoji-animated');
+        if (newEmoji) {
+            newEmoji.classList.remove('emoji-animated'); // Remove to re-add and re-trigger animation
+            void newEmoji.offsetWidth; // Trigger reflow
+            newEmoji.classList.add('emoji-animated');
+        }
+
     }, 500); // Wait for fade out to finish
 }, 4000); // Change every 4 seconds
 
@@ -130,12 +139,24 @@ class Ribbon {
         this.x = 0;
         this.y = Math.random() * height;
         this.vy = Math.random() * 0.1 - 0.05; // Slower vertical movement
-        this.color = `hsla(${Math.random() * 360}, 70%, 60%, 0.15)`;
+        
+        // Generate hues specifically for pink, violet, purplish
+        let hue;
+        const rand = Math.random();
+        if (rand < 0.33) { // Pinkish
+            hue = Math.random() * (350 - 320) + 320; 
+        } else if (rand < 0.66) { // Purplish
+            hue = Math.random() * (280 - 250) + 250; 
+        } else { // Violet
+            hue = Math.random() * (270 - 240) + 240; 
+        }
+
+        this.color = `hsla(${hue}, 80%, 70%, 0.15)`; // Increased saturation and lightness
         this.width = Math.random() * width;
-        // Decreased Amplitude (vertical length) for a more subtle, horizontal ribbon effect
-        this.amplitude = Math.random() * 50 + 20; 
-        this.frequency = Math.random() * 0.01 + 0.005; // Decreased frequency for wider waves
+        this.amplitude = Math.random() * 50 + 20; // Subtle vertical presence
+        this.frequency = Math.random() * 0.01 + 0.005; // Wider waves
         this.phase = Math.random() * Math.PI * 2;
+        this.lineWidth = Math.random() * 2 + 1; // Varying line thickness for detail
     }
     update() {
         this.phase += 0.01; // Slower wave speed
@@ -146,30 +167,41 @@ class Ribbon {
     }
     draw() {
         ctx.beginPath();
-        // Drawing the ribbon with less vertical movement (smaller amplitude)
-        for (let i = 0; i <= width; i += 10) { 
+        // Set glow effect for each ribbon
+        ctx.shadowBlur = 15; // More blur for a stronger glow
+        ctx.shadowColor = `hsla(${this.color.split('(')[1].split(',')[0]}, 100%, 80%, 0.8)`; // Brighter glow color
+
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.lineWidth;
+
+        for (let i = 0; i <= width; i += 5) { // Denser drawing points
             const y = this.y + Math.sin(i * this.frequency + this.phase) * this.amplitude;
             ctx.lineTo(i, y);
         }
-        ctx.lineTo(width, height);
-        ctx.lineTo(0, height);
+        ctx.stroke(); // Draw the line with glow
+
         ctx.closePath();
         
+        // Reset shadow for other drawings if any, or next ribbon
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+
+        // Fill with a gradient (less opaque to see lines more)
         const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, this.color);
+        gradient.addColorStop(0, this.color.replace('0.15', '0.08')); // Slightly less opaque
         gradient.addColorStop(1, 'rgba(12, 10, 36, 0)');
         ctx.fillStyle = gradient;
         ctx.fill();
     }
 }
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 30; i++) { // Increased number of ribbons
     ribbons.push(new Ribbon());
 }
 
 function animate() {
-    // Subtle trail effect instead of clearing entirely
-    ctx.fillStyle = 'rgba(12, 10, 36, 0.05)'; 
+    // Subtle trail effect instead of clearing entirely, maintains vibrancy
+    ctx.fillStyle = 'rgba(12, 10, 36, 0.03)'; // Even less opaque trail
     ctx.fillRect(0, 0, width, height);
     
     for (const ribbon of ribbons) {
