@@ -1,6 +1,5 @@
 // --- IMPORTANT: SET YOUR SPECIAL DATE HERE ---
-// The format is: 'YYYY-MM-DDTHH:MM:SS'
-const anniversaryDate = new Date('2025-07-25T20:30:00');
+const anniversaryDate = new Date('2025-07-25T20:30:00'); // Ensure this date is correct!
 
 // Get the elements from the HTML
 const yearsEl = document.getElementById('years');
@@ -21,35 +20,18 @@ function updateTimer() {
     let minutes = now.getMinutes() - anniversaryDate.getMinutes();
     let seconds = now.getSeconds() - anniversaryDate.getSeconds();
 
-    // This logic handles "borrowing" from larger units if a value is negative
-    // For example, if seconds are negative, it subtracts a minute and adds 60 seconds.
-    if (seconds < 0) {
-        seconds += 60;
-        minutes--;
-    }
-    if (minutes < 0) {
-        minutes += 60;
-        hours--;
-    }
-    if (hours < 0) {
-        hours += 24;
-        days--;
-    }
+    if (seconds < 0) { seconds += 60; minutes--; }
+    if (minutes < 0) { minutes += 60; hours--; }
+    if (hours < 0) { hours += 24; days--; }
     if (days < 0) {
-        // Get the last day of the previous month
         const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
         days += lastMonth.getDate();
         months--;
     }
-    if (months < 0) {
-        months += 12;
-        years--;
-    }
+    if (months < 0) { months += 12; years--; }
 
-    // This function adds a '0' in front of numbers less than 10
     const pad = (num) => num.toString().padStart(2, '0');
 
-    // Update the HTML content with the new values
     yearsEl.textContent = years;
     monthsEl.textContent = months;
     daysEl.textContent = days;
@@ -58,26 +40,105 @@ function updateTimer() {
     secondsEl.textContent = pad(seconds);
 }
 
-// --- Floating Hearts Functionality ---
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    
-    heart.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
-    heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random speed (between 5s and 10s)
-    heart.innerHTML = '❤️';
-    
-    document.body.appendChild(heart);
-    
-    // Remove the heart after it finishes its animation
-    setTimeout(() => {
-        heart.remove();
-    }, 10000); // 10000ms = 10s
-}
-
-// Run the timer update function immediately and then every second
+// Run the timer update function
 updateTimer();
 setInterval(updateTimer, 1000);
 
-// Create a new heart every 500ms (half a second)
-setInterval(createHeart, 500);
+// Note: The floating hearts animation from the previous version is disabled
+// because the starfield is now the primary visual effect. You can re-enable it
+// by uncommenting the two lines below if you wish.
+
+// function createHeart() { ... } // (keep the function from previous version if you want)
+// setInterval(createHeart, 500);
+
+
+// --- NEW: Starfield and Shooting Stars Animation --- //
+
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+const stars = [];
+const numStars = 800;
+const shootingStars = [];
+
+// Create stars
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5 + 0.5,
+        alpha: Math.random(),
+        twinkleSpeed: Math.random() * 0.03 + 0.01,
+        twinkleDirection: 1
+    });
+}
+
+function createShootingStar() {
+    shootingStars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height / 2,
+        len: Math.random() * 80 + 10,
+        speed: Math.random() * 8 + 5,
+        alpha: 1,
+        life: 100 // life in frames
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw stars
+    for (const star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        
+        // Twinkle effect
+        star.alpha += star.twinkleSpeed * star.twinkleDirection;
+        if (star.alpha >= 1 || star.alpha <= 0) {
+            star.twinkleDirection *= -1;
+        }
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
+    }
+
+    // Draw shooting stars
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const ss = shootingStars[i];
+        
+        ctx.beginPath();
+        const gradient = ctx.createLinearGradient(ss.x, ss.y, ss.x + ss.len, ss.y - ss.len);
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${ss.alpha})`);
+        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+        
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1;
+        ctx.moveTo(ss.x, ss.y);
+        ctx.lineTo(ss.x - ss.len, ss.y + ss.len);
+        ctx.stroke();
+
+        ss.x -= ss.speed;
+        ss.y += ss.speed / 5; // Slight downward angle
+        ss.life--;
+        ss.alpha = ss.life / 100;
+
+        if (ss.life <= 0 || ss.x < -ss.len) {
+            shootingStars.splice(i, 1);
+        }
+    }
+
+    requestAnimationFrame(draw);
+}
+
+// Randomly create shooting stars
+setInterval(createShootingStar, 3000);
+
+draw();
