@@ -136,7 +136,7 @@ h2 {
     min-width: 100px;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 1s forwards;
+    animation: fadeInUp 0.8 forwards;
 }
 
 /* Staggered animation for each timer box */
