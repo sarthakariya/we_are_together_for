@@ -1,7 +1,6 @@
-/* General Body and Background Styling */
+/* --- General Body & Aurora Background --- */
 body {
     margin: 0;
-    padding: 0;
     font-family: 'Poppins', sans-serif;
     color: white;
     display: flex;
@@ -9,52 +8,71 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
-    /* UPDATED: A solid, dark space-blue background for the canvas to sit on */
-    background-color: #000011; 
+    /* A deep, magical indigo base for the Aurora */
+    background-color: #0c0a24;
 }
 
-/* --- NEW Starfield Background --- */
-#starfield {
-    position: fixed; /* Stays in place */
+#aurora-canvas {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Sits behind all other content */
+    z-index: -1;
 }
 
-/* The main content box with a futuristic glass effect */
+/* --- Main Content Box & Its Animation --- */
 .main-container {
     text-align: center;
     padding: 40px;
-    /* UPDATED: Slightly darker for better contrast against the starfield */
-    background: rgba(0, 0, 0, 0.35); 
+    background: rgba(40, 28, 77, 0.35); /* A purplish, ethereal glass effect */
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     max-width: 90%;
-    width: 800px;
+    width: 850px;
+    /* Entrance Animation */
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeInContainer 1.5s 0.5s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Styling for the main heading */
+@keyframes fadeInContainer {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Text Elements & Animations --- */
 h1 {
     font-family: 'Great Vibes', cursive;
     font-size: 4.5rem;
     font-weight: normal;
     margin: 0;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 15px rgba(255, 125, 255, 0.7);
+    animation: fadeInText 1s 1.5s forwards;
+    opacity: 0;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 300;
-    margin-top: 5px;
-    opacity: 0.9;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 30px; /* Fixed height to prevent layout shift */
+    color: #f0c5ff;
+    text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
+    transition: opacity 0.5s ease-in-out;
 }
 
-/* The timer container */
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+/* --- Timer & Its Animations --- */
 #timer {
     display: flex;
     flex-wrap: wrap;
@@ -68,14 +86,39 @@ h1 {
     flex-direction: column;
     align-items: center;
     min-width: 100px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+
+/* Staggered animation for each timer box */
+.time-box:nth-child(1) { animation-delay: 2s; }
+.time-box:nth-child(2) { animation-delay: 2.1s; }
+.time-box:nth-child(3) { animation-delay: 2.2s; }
+.time-box:nth-child(4) { animation-delay: 2.3s; }
+.time-box:nth-child(5) { animation-delay: 2.4s; }
+.time-box:nth-child(6) { animation-delay: 2.5s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .time-value {
     font-size: 3.5rem;
     font-weight: 600;
     line-height: 1;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-    animation: pulseGlow 2s infinite ease-in-out alternate;
+    text-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Animation when a number updates */
+.time-value.updated {
+    transform: translateY(-10px) scale(1.1);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1);
+    transition: transform 0.1s ease, text-shadow 0.1s ease;
 }
 
 .time-label {
@@ -85,36 +128,29 @@ h1 {
     letter-spacing: 2px;
 }
 
-@keyframes pulseGlow {
-    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
-    to { text-shadow: 0 0 30px rgba(255, 255, 255, 1); }
-}
-
-/* --- NEW Styling for the Dedication Message --- */
+/* --- Dedication Message --- */
 .dedication {
     margin-top: 30px;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    animation: fadeInText 1s 3.5s forwards;
 }
 
 .dedication p {
     font-style: italic;
-    font-weight: 300;
-    font-size: 1rem;
-    opacity: 0.9;
+    font-size: 1.1rem;
     max-width: 600px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* --- Media Queries for Phone Compatibility --- */
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
-    .main-container { padding: 20px; width: 90%; }
+    .main-container { padding: 25px; }
     h1 { font-size: 3rem; }
-    .subtitle { font-size: 1rem; }
-    #timer { gap: 15px; }
-    .time-box { min-width: 80px; }
+    .subtitle { font-size: 1.2rem; height: 25px; }
     .time-value { font-size: 2.5rem; }
     .time-label { font-size: 0.7rem; }
-    .dedication p { font-size: 0.9rem; }
+    .dedication p { font-size: 0.95rem; }
 }
