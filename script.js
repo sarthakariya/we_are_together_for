@@ -1,7 +1,6 @@
 // --- IMPORTANT: SET YOUR SPECIAL DATE HERE ---
 // The format is: 'YYYY-MM-DDTHH:MM:SS'
-// For example, July 25th, 2023 at midnight would be '2023-07-25T00:00:00'
-const anniversaryDate = new Date('2023-07-25T00:00:00');
+const anniversaryDate = new Date('2025-07-25T20:30:00');
 
 // Get the elements from the HTML
 const yearsEl = document.getElementById('years');
