@@ -165,7 +165,8 @@ class Ribbon {
         this.lineWidth = Math.random() * 2 + 1; // Varying line thickness for detail
     }
     update() {
-        this.phase += 0.01; // Slower wave speed
+        // Reduced speed for smoother, less intensive animation
+        this.phase += 0.008; 
         this.y += this.vy;
         if (this.y < 0 || this.y > height) {
             this.init();
@@ -174,40 +175,40 @@ class Ribbon {
     draw() {
         ctx.beginPath();
         // Set glow effect for each ribbon
-        ctx.shadowBlur = 15; // More blur for a stronger glow
-        ctx.shadowColor = `hsla(${this.color.split('(')[1].split(',')[0]}, 100%, 80%, 0.8)`; // Brighter glow color
+        ctx.shadowBlur = 15; 
+        ctx.shadowColor = `hsla(${this.color.split('(')[1].split(',')[0]}, 100%, 80%, 0.8)`; 
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
 
-        for (let i = 0; i <= width; i += 5) { // Denser drawing points
+        for (let i = 0; i <= width; i += 5) { 
             const y = this.y + Math.sin(i * this.frequency + this.phase) * this.amplitude;
             ctx.lineTo(i, y);
         }
-        ctx.stroke(); // Draw the line with glow
+        ctx.stroke(); 
 
         ctx.closePath();
         
-        // Reset shadow for other drawings if any, or next ribbon
+        // Reset shadow 
         ctx.shadowBlur = 0;
         ctx.shadowColor = 'transparent';
 
-        // Fill with a gradient (less opaque to see lines more)
+        // Fill with a gradient 
         const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, this.color.replace('0.15', '0.08')); // Slightly less opaque
+        gradient.addColorStop(0, this.color.replace('0.15', '0.08')); 
         gradient.addColorStop(1, 'rgba(12, 10, 36, 0)');
         ctx.fillStyle = gradient;
         ctx.fill();
     }
 }
 
-for (let i = 0; i < 30; i++) { // Increased number of ribbons
+for (let i = 0; i < 20; i++) { // Reduced number of ribbons for performance
     ribbons.push(new Ribbon());
 }
 
 function animate() {
-    // Subtle trail effect instead of clearing entirely, maintains vibrancy
-    ctx.fillStyle = 'rgba(12, 10, 36, 0.03)'; // Even less opaque trail
+    // Subtle trail effect instead of clearing entirely
+    ctx.fillStyle = 'rgba(12, 10, 36, 0.03)'; 
     ctx.fillRect(0, 0, width, height);
     
     for (const ribbon of ribbons) {
