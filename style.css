@@ -1,193 +1,592 @@
 /* --- General Body & Aurora Background --- */
+
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    background-color: #0c0a24;
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    /* A deep, magical indigo base for the Aurora */
+
+    background-color: #0c0a24;
+
 }
+
+
 
 #aurora-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: -1;
+
 }
+
+
 
 /* --- Main Content Box & Its Animation --- */
+
 .main-container {
-    text-align: center;
-    padding: 40px;
-    background: rgba(40, 28, 77, 0.35);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    /* OPTIMIZATION: This is the high-quality glass effect for desktops */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    max-width: 90%;
-    width: 850px;
-    opacity: 0;
-    transform: scale(0.95);
-    animation: fadeInContainer 1.5s 0.5s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    text-align: center;
+
+    padding: 40px;
+
+    background: rgba(40, 28, 77, 0.35); /* A purplish, ethereal glass effect */
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    max-width: 90%;
+
+    width: 850px;
+
+    /* Entrance Animation */
+
+    opacity: 0;
+
+    transform: scale(0.95);
+
+    animation: fadeInContainer 1.5s 0.5s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+
 }
+
+
 
 @keyframes fadeInContainer {
-    to { opacity: 1; transform: scale(1); }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
 }
+
+
 
 /* --- Text Elements & Animations --- */
+
 h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 4.5rem;
-    font-weight: normal;
-    margin: 0;
-    text-shadow: 0 0 15px rgba(255, 125, 255, 0.7);
-    animation: fadeInText 1s 1.5s forwards;
-    opacity: 0;
+
+    font-family: 'Great Vibes', cursive;
+
+    font-size: 4.5rem;
+
+    font-weight: normal;
+
+    margin: 0;
+
+    text-shadow: 0 0 15px rgba(255, 125, 255, 0.7);
+
+    animation: fadeInText 1s 1.5s forwards;
+
+    opacity: 0;
+
+    position: relative; 
+
 }
+
+
 
 h2 {
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: fadeInText 1s 1.7s forwards;
+
+    font-size: 1.4rem;
+
+    font-weight: 400;
+
+    margin-top: 30px;
+
+    margin-bottom: 10px;
+
+    opacity: 0;
+
+    animation: fadeInText 1s 1.7s forwards;
+
+    position: relative; 
+
 }
+
+
+
+/* Pet Names (Cyclic Text) Styling */
 
 .subtitle {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    font-size: 1.5rem;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 30px;
-    color: #F5B027;
-    text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
-    transition: opacity 0.5s ease-in-out;
-    font-style: italic;
-    letter-spacing: 0.5px;
+
+    font-family: 'Poppins', sans-serif; 
+
+    font-weight: 300; 
+
+    font-size: 1.5rem;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+
+    height: 30px; 
+
+    color: #F5B027;
+
+    text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
+
+    transition: opacity 0.5s ease-in-out;
+
+    position: relative; 
+
+    /* Using 'italic' as the chosen "better font" style */
+
+    font-style: italic; 
+
+    letter-spacing: 0.5px;
+
 }
 
-@keyframes fadeInText { to { opacity: 1; } }
 
-/* --- Timer & Its Animations --- */
-#timer, #next-anniversary-timer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin: 10px 0 30px 0;
+
+/* Removed: .anniversary-date-text styles */
+
+
+
+
+
+@keyframes fadeInText {
+
+    to { opacity: 1; }
+
 }
 
-.time-box, .time-box-small {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s forwards;
+
+
+/* Emoji Animation */
+
+.emoji-animated {
+
+    display: inline-block;
+
+    animation: emojiPop 0.5s ease-out forwards;
+
+    transform-origin: center bottom;
+
+    opacity: 0;
+
+    margin-left: 5px; 
+
 }
 
-.time-box { min-width: 100px; }
-.time-box-small { min-width: 70px; }
 
-/* Staggered animation delays */
+
+/* Specific delays for emojis in the dedication */
+
+.dedication .emoji-animated:nth-of-type(1) { animation-delay: 3.7s; }
+
+.dedication .emoji-animated:nth-of-type(2) { animation-delay: 3.8s; }
+
+.dedication .emoji-animated:nth-of-type(3) { animation-delay: 3.9s; }
+
+
+
+
+
+@keyframes emojiPop {
+
+    0% {
+
+        transform: scale(0);
+
+        opacity: 0;
+
+    }
+
+    60% {
+
+        transform: scale(1.2);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+
+
+
+/* --- Timer & Its Animations (Main Timer) --- */
+
+#timer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin: 10px 0 30px 0;
+
+}
+
+
+
+.time-box {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    min-width: 100px;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    animation: fadeInUp 1s forwards;
+
+}
+
+
+
+/* Staggered animation for each timer box */
+
 .main-timer .time-box:nth-child(1) { animation-delay: 2s; }
+
 .main-timer .time-box:nth-child(2) { animation-delay: 2.1s; }
+
 .main-timer .time-box:nth-child(3) { animation-delay: 2.2s; }
+
 .main-timer .time-box:nth-child(4) { animation-delay: 2.3s; }
+
 .main-timer .time-box:nth-child(5) { animation-delay: 2.4s; }
+
 .main-timer .time-box:nth-child(6) { animation-delay: 2.5s; }
-.anniversary-timer .time-box-small { animation-delay: 2.7s; }
 
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-.time-value { font-size: 3.5rem; }
-.time-value, .time-value-small {
-    font-weight: 600;
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
-    /* OPTIMIZATION: Use 'will-change' to tell the browser this will be animated */
-    will-change: transform;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+
+@keyframes fadeInUp {
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
 }
+
+
+
+.time-value {
+
+    font-size: 3.5rem;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    text-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
+
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+
+}
+
+
+
+.time-label {
+
+    font-size: 1rem;
+
+    font-weight: 300;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+/* --- Timer & Its Animations (Anniversary Timer) --- */
+
+#next-anniversary-timer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin: 10px 0 30px 0;
+
+}
+
+
+
+.time-box-small {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    min-width: 70px;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    animation: fadeInUp 1s forwards 2.7s; 
+
+}
+
+
 
 .time-value-small {
-    font-size: 2.2rem;
-    color: #ffd700;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+
+    font-size: 2.2rem;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    color: #ffd700; /* Gold color for contrast */
+
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+
 }
 
-.time-label { font-size: 1rem; letter-spacing: 2px; }
-.time-label-small { font-size: 0.8rem; letter-spacing: 1px; }
-.time-label, .time-label-small { font-weight: 300; text-transform: uppercase; }
 
-/* --- OPTIMIZATION: NEW SMOOTHER ANIMATION FOR NUMBER UPDATES --- */
-/* We are replacing the laggy 'text-shadow' animation with a super-fast 'transform' one */
+
+.time-label-small {
+
+    font-size: 0.8rem;
+
+    font-weight: 300;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+/* Animation when a number updates */
+
 .time-value.updated, .time-value-small.updated {
-    transform: translateY(-8px) scale(1.1);
-    color: #fff; /* Brighten the color briefly on update */
-    transition: transform 0.1s ease-out, color 0.1s ease-out;
+
+    transform: translateY(-10px) scale(1.1);
+
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1);
+
+    transition: transform 0.1s ease, text-shadow 0.1s ease;
+
 }
+
+
 
 /* --- Dedication Message & Separator --- */
+
 .separator {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-    margin: 20px 0;
-    opacity: 0;
-    animation: fadeInText 1s 2.6s forwards;
+
+    border: 0;
+
+    height: 1px;
+
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+
+    margin: 20px 0;
+
+    opacity: 0;
+
+    animation: fadeInText 1s 2.6s forwards;
+
 }
+
+
 
 .dedication {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    opacity: 0;
-    animation: fadeInText 1s 3.5s forwards;
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    opacity: 0;
+
+    animation: fadeInText 1s 3.5s forwards;
+
 }
+
+
 
 .dedication p {
-    font-style: italic;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.7;
+
+    font-style: italic;
+
+    font-size: 1.1rem;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+
+    line-height: 1.7;
+
 }
 
-/* --- RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS --- */
+
+
+/* --- Responsive Design (Refined for Ultra Compact Mobile View) --- */
+
 @media (max-width: 768px) {
-    /* OPTIMIZATION: Turn OFF the expensive glass blur effect on phones */
-    .main-container {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        /* OPTIMIZATION: Also simplify the box shadow on phones */
-        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
-    }
 
-    /* Keep the rest of your responsive styles */
-    .main-container { padding: 10px 5px; width: 98%; }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 0.9rem; margin-top: 10px; margin-bottom: 5px; }
-    .subtitle { font-size: 0.9rem; height: 18px; margin-top: 5px; margin-bottom: 5px; }
-    .dedication p { font-size: 0.8rem; line-height: 1.5; margin-top: 8px; }
-    #timer { gap: 5px; margin: 5px 0 10px 0; justify-content: space-between; }
-    .time-box { min-width: 30%; margin-bottom: 5px; padding: 5px 0; }
-    .time-value { font-size: 1.6rem; }
-    .time-label { font-size: 0.55rem; letter-spacing: 0.5px; }
-    #next-anniversary-timer { gap: 5px; margin: 5px 0 10px 0; justify-content: space-between; }
-    .time-box-small { min-width: 23%; padding: 5px 0; }
-    .time-value-small { font-size: 1.3rem; }
-    .time-label-small { font-size: 0.5rem; letter-spacing: 0.5px; }
-    .separator { margin: 10px 0; }
-    .dedication { margin-top: 10px; padding-top: 5px; }
+    .main-container { 
+
+        padding: 10px 5px; /* Even smaller padding */
+
+        width: 98%; 
+
+    }
+
+    
+
+    /* Smaller Text Elements for Ultra Compactness */
+
+    h1 { font-size: 2rem; } /* Extremely small title */
+
+    h2 { font-size: 0.9rem; margin-top: 10px; margin-bottom: 5px; }
+
+    .subtitle { 
+
+        font-size: 0.9rem; /* Smallest pet names */
+
+        height: 18px; 
+
+        margin-top: 5px; 
+
+        margin-bottom: 5px; 
+
+    }
+
+    /* Removed: .anniversary-date-text styles */
+
+    .dedication p { 
+
+        font-size: 0.8rem; 
+
+        line-height: 1.5;
+
+        margin-top: 8px;
+
+    }
+
+
+
+    /* Main Timer Boxes (Years, Months, Days, etc.) */
+
+    #timer { 
+
+        gap: 5px; 
+
+        margin: 5px 0 10px 0;
+
+        justify-content: space-between; 
+
+    }
+
+    .time-box {
+
+        min-width: 30%; 
+
+        margin-bottom: 5px; 
+
+        padding: 5px 0;
+
+    }
+
+    .time-value { font-size: 1.6rem; } /* Smallest value */
+
+    .time-label { font-size: 0.55rem; letter-spacing: 0.5px; }
+
+    
+
+    /* Anniversary Timer Boxes (Days, Hours, Minutes, Seconds) */
+
+    #next-anniversary-timer {
+
+        gap: 5px;
+
+        margin: 5px 0 10px 0;
+
+        justify-content: space-between;
+
+    }
+
+    .time-box-small {
+
+        min-width: 23%; 
+
+        padding: 5px 0;
+
+    }
+
+    .time-value-small { font-size: 1.3rem; } /* Smallest value */
+
+    .time-label-small { font-size: 0.5rem; letter-spacing: 0.5px; }
+
+    
+
+    .separator { margin: 10px 0; }
+
+    .dedication { margin-top: 10px; padding-top: 5px; }
+
 }
+
