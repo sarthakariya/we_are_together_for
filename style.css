@@ -68,9 +68,9 @@ h2 {
     position: relative; 
 }
 
-/* NEW FONT for Pet Names: A nice, legible script/fancy serif that isn't too cursive */
+/* Pet Names (Cyclic Text) Styling */
 .subtitle {
-    font-family: 'Poppins', sans-serif; /* Fallback to Poppins or choose a better imported one if available */
+    font-family: 'Poppins', sans-serif; 
     font-weight: 300; 
     font-size: 1.5rem;
     margin-top: 10px;
@@ -80,10 +80,13 @@ h2 {
     text-shadow: 0 0 10px rgba(240, 197, 255, 0.8);
     transition: opacity 0.5s ease-in-out;
     position: relative; 
-    /* Adding a light styling touch to distinguish the font */
-    font-style: italic;
+    /* Using 'italic' as the chosen "better font" style */
+    font-style: italic; 
     letter-spacing: 0.5px;
 }
+
+/* Removed: .anniversary-date-text styles */
+
 
 @keyframes fadeInText {
     to { opacity: 1; }
@@ -241,53 +244,53 @@ h2 {
 /* --- Responsive Design (Refined for Ultra Compact Mobile View) --- */
 @media (max-width: 768px) {
     .main-container { 
-        padding: 15px 5px; /* Minimal padding */
+        padding: 10px 5px; /* Even smaller padding */
         width: 98%; 
     }
     
     /* Smaller Text Elements for Ultra Compactness */
-    h1 { font-size: 2.2rem; } /* Very small title */
-    h2 { font-size: 1rem; margin-top: 15px; margin-bottom: 5px; }
+    h1 { font-size: 2rem; } /* Extremely small title */
+    h2 { font-size: 0.9rem; margin-top: 10px; margin-bottom: 5px; }
     .subtitle { 
-        font-size: 1rem; /* Smaller pet names */
-        height: 20px; 
+        font-size: 0.9rem; /* Smallest pet names */
+        height: 18px; 
         margin-top: 5px; 
         margin-bottom: 5px; 
-        font-style: italic; /* Keeps the style */
     }
+    /* Removed: .anniversary-date-text styles */
     .dedication p { 
-        font-size: 0.85rem; 
+        font-size: 0.8rem; 
         line-height: 1.5;
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
     /* Main Timer Boxes (Years, Months, Days, etc.) */
     #timer { 
-        gap: 5px; /* Tiny gap */
-        margin: 5px 0 15px 0;
-        justify-content: space-between; /* Spread out for better tap targets */
+        gap: 5px; 
+        margin: 5px 0 10px 0;
+        justify-content: space-between; 
     }
     .time-box {
         min-width: 30%; 
         margin-bottom: 5px; 
         padding: 5px 0;
     }
-    .time-value { font-size: 1.8rem; } /* Very small value */
-    .time-label { font-size: 0.6rem; letter-spacing: 0.5px; }
+    .time-value { font-size: 1.6rem; } /* Smallest value */
+    .time-label { font-size: 0.55rem; letter-spacing: 0.5px; }
     
     /* Anniversary Timer Boxes (Days, Hours, Minutes, Seconds) */
     #next-anniversary-timer {
-        gap: 8px;
-        margin: 5px 0 15px 0;
+        gap: 5px;
+        margin: 5px 0 10px 0;
         justify-content: space-between;
     }
     .time-box-small {
-        min-width: 23%; /* Keeps 4 boxes in a single row */
+        min-width: 23%; 
         padding: 5px 0;
     }
-    .time-value-small { font-size: 1.4rem; } /* Very small value */
-    .time-label-small { font-size: 0.55rem; letter-spacing: 0.5px; }
+    .time-value-small { font-size: 1.3rem; } /* Smallest value */
+    .time-label-small { font-size: 0.5rem; letter-spacing: 0.5px; }
     
-    .separator { margin: 15px 0; }
-    .dedication { margin-top: 15px; padding-top: 10px; }
+    .separator { margin: 10px 0; }
+    .dedication { margin-top: 10px; padding-top: 5px; }
 }
