@@ -22,44 +22,39 @@ const elements = {
     annivMinutes: document.getElementById('anniv-minutes'),
     annivSeconds: document.getElementById('anniv-seconds'),
     anniversaryTitle: document.getElementById('anniversary-title'), // Target the H2
-    anniversaryDateText: document.getElementById('anniversary-date-text') // Target the date display
+    // anniversaryDateText element removed
 };
 
 let lastTime = {};
 
-// Helper function to get the ordinal suffix (st, nd, rd, th)
+// Helper function to get the ordinal suffix (st, nd, rd, th) with a space
 function getOrdinalSuffix(n) {
     if (n === 11 || n === 12 || n === 13) {
-        return 'th';
+        return ' th';
     }
     const lastDigit = n % 10;
     switch (lastDigit) {
-        case 1: return 'st';
-        case 2: return 'nd';
-        case 3: return 'rd';
-        default: return 'th';
+        case 1: return ' st';
+        case 2: return ' nd';
+        case 3: return ' rd';
+        default: return ' th';
     }
 }
 
 function updateAnniversaryText(nextAnniversaryDate) {
     const startYear = anniversaryDate.getFullYear();
-    // The target year is the year of the next anniversary date
     const targetYear = nextAnniversaryDate.getFullYear(); 
     
-    // Calculate which anniversary number this date represents: 
-    // This correctly gives 1 for the first year after the start date, 2 for the second, and so on.
+    // Calculate which anniversary number this date represents
     const anniversaryNumber = targetYear - startYear;
 
     if (anniversaryNumber < 1) {
-        // This should only happen if the start date is in the future. We'll default to 1st.
-        elements.anniversaryTitle.textContent = "Counting down to our 1st Anniversary... 🥹✨";
+        // If before the first anniversary
+        elements.anniversaryTitle.textContent = "Counting down to our 1 st Anniversary... 🥹✨";
     } else {
         const ordinal = getOrdinalSuffix(anniversaryNumber);
         elements.anniversaryTitle.textContent = `Our ${anniversaryNumber}${ordinal} Anniversary is in... 🥹✨`;
     }
-
-    // Always display the date below the dynamic title
-    elements.anniversaryDateText.textContent = `${nextAnniversaryDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
 }
 
 
@@ -112,7 +107,7 @@ function updateTimer() {
         nextAnniversary = annivInCurrentYear;
     }
 
-    // Update the dynamic title and date text
+    // Update the dynamic title text
     updateAnniversaryText(nextAnniversary);
     
     const timeRemaining = nextAnniversary.getTime() - now.getTime();
