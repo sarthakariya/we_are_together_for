@@ -20,10 +20,48 @@ const elements = {
     annivDays: document.getElementById('anniv-days'),
     annivHours: document.getElementById('anniv-hours'),
     annivMinutes: document.getElementById('anniv-minutes'),
-    annivSeconds: document.getElementById('anniv-seconds')
+    annivSeconds: document.getElementById('anniv-seconds'),
+    anniversaryTitle: document.getElementById('anniversary-title'), // Target the H2
+    anniversaryDateText: document.getElementById('anniversary-date-text') // Target the date display
 };
 
 let lastTime = {};
+
+// Helper function to get the ordinal suffix (st, nd, rd, th)
+function getOrdinalSuffix(n) {
+    if (n === 11 || n === 12 || n === 13) {
+        return 'th';
+    }
+    const lastDigit = n % 10;
+    switch (lastDigit) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+    }
+}
+
+function updateAnniversaryText(nextAnniversaryDate) {
+    const startYear = anniversaryDate.getFullYear();
+    // The target year is the year of the next anniversary date
+    const targetYear = nextAnniversaryDate.getFullYear(); 
+    
+    // Calculate which anniversary number this date represents: 
+    // This correctly gives 1 for the first year after the start date, 2 for the second, and so on.
+    const anniversaryNumber = targetYear - startYear;
+
+    if (anniversaryNumber < 1) {
+        // This should only happen if the start date is in the future. We'll default to 1st.
+        elements.anniversaryTitle.textContent = "Counting down to our 1st Anniversary... 🥹✨";
+    } else {
+        const ordinal = getOrdinalSuffix(anniversaryNumber);
+        elements.anniversaryTitle.textContent = `Our ${anniversaryNumber}${ordinal} Anniversary is in... 🥹✨`;
+    }
+
+    // Always display the date below the dynamic title
+    elements.anniversaryDateText.textContent = `${nextAnniversaryDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+}
+
 
 function updateTimer() {
     const now = new Date();
@@ -61,13 +99,21 @@ function updateTimer() {
     }
     
     // --- Next Anniversary Countdown Timer (Counts to 12:00:00 AM) ---
-    // Sets the next anniversary date to 12:00:00 AM
     let nextAnniversary = new Date(now.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, ANNIVERSARY_HOUR, ANNIVERSARY_MINUTE, ANNIVERSARY_SECOND);
-
-    // If the time is past 12:00:00 AM on July 25th this year, set it for next year
-    if (now.getTime() >= nextAnniversary.getTime()) {
+    
+    // Logic to determine if we passed the anniversary this year
+    const annivInCurrentYear = new Date(now.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, ANNIVERSARY_HOUR, ANNIVERSARY_MINUTE, ANNIVERSARY_SECOND);
+    
+    if (now.getTime() >= annivInCurrentYear.getTime()) {
+        // If passed, set it for next year
         nextAnniversary = new Date(now.getFullYear() + 1, ANNIVERSARY_MONTH, ANNIVERSARY_DAY, ANNIVERSARY_HOUR, ANNIVERSARY_MINUTE, ANNIVERSARY_SECOND);
+    } else {
+        // Otherwise, use this year's date
+        nextAnniversary = annivInCurrentYear;
     }
+
+    // Update the dynamic title and date text
+    updateAnniversaryText(nextAnniversary);
     
     const timeRemaining = nextAnniversary.getTime() - now.getTime();
 
@@ -123,7 +169,7 @@ setInterval(() => {
         }
 
     }, 500); // Wait for fade out to finish
-}, 3000); // Change every 4 seconds
+}, 3000); // Change every 3 seconds
 
 
 // --- 3. ETHEREAL AURORA BACKGROUND ---
@@ -177,13 +223,13 @@ class Ribbon {
         ctx.beginPath();
         
         // Set glow effect for each ribbon
-        ctx.shadowBlur = 12; // Slight reduction in blur intensity
+        ctx.shadowBlur = 12; 
         ctx.shadowColor = `hsla(${this.color.split('(')[1].split(',')[0]}, 100%, 80%, 0.8)`; 
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
 
-        for (let i = 0; i <= width; i += 7) { // Increased step size (fewer points) for speed
+        for (let i = 0; i <= width; i += 7) { 
             const y = this.y + Math.sin(i * this.frequency + this.phase) * this.amplitude;
             ctx.lineTo(i, y);
         }
@@ -210,7 +256,6 @@ for (let i = 0; i < 20; i++) {
 
 function animate() {
     // This draws a subtle, nearly transparent layer over the top each frame.
-    // It is critical for the "smooth trail" effect of the aurora.
     ctx.fillStyle = 'rgba(12, 10, 36, 0.03)'; 
     ctx.fillRect(0, 0, width, height);
     
